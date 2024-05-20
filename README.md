@@ -21,7 +21,7 @@ pip install --upgrade reka-ai
 from reka.client import Reka
 
 client = Reka(
-    header="YOUR_HEADER",
+    api_key="YOUR_API_KEY",
 )
 ```
 <!-- End Usage  -->
@@ -33,7 +33,7 @@ client = Reka(
 from reka.client import AsyncReka
 
 client = AsyncReka(
-    header="YOUR_HEADER",
+    api_key="YOUR_API_KEY",
 )
 ```
 <!-- End Async Usage  -->

@@ -44,7 +44,7 @@ class Reka:
 
 
 
-    header : typing.Optional[str]
+    api_key : typing.Optional[str]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests by default the timeout is 60 seconds, unless a custom httpx client is used, in which case a default is not set.
 
@@ -59,7 +59,7 @@ class Reka:
     from reka.client import Reka
 
     client = Reka(
-        header="YOUR_HEADER",
+        api_key="YOUR_API_KEY",
     )
     """
 
@@ -68,17 +68,17 @@ class Reka:
         *,
         base_url: typing.Optional[str] = None,
         environment: RekaEnvironment = RekaEnvironment.DEFAULT,
-        header: typing.Optional[str] = os.getenv("REKA_API_KEY"),
+        api_key: typing.Optional[str] = os.getenv("REKA_API_KEY"),
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None,
     ):
         _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
-        if header is None:
-            raise ApiError(body="The client must be instantiated be either passing in header or setting REKA_API_KEY")
+        if api_key is None:
+            raise ApiError(body="The client must be instantiated be either passing in api_key or setting REKA_API_KEY")
         self._client_wrapper = SyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
-            header=header,
+            api_key=api_key,
             httpx_client=httpx_client
             if httpx_client is not None
             else httpx.Client(timeout=_defaulted_timeout, follow_redirects=follow_redirects)
@@ -142,7 +142,7 @@ class Reka:
         from reka.client import Reka
 
         client = Reka(
-            header="YOUR_HEADER",
+            api_key="YOUR_API_KEY",
         )
         client.chat_stream(
             frequency_penalty=1.1,
@@ -280,7 +280,7 @@ class Reka:
         from reka.client import Reka
 
         client = Reka(
-            header="YOUR_HEADER",
+            api_key="YOUR_API_KEY",
         )
         client.chat(
             messages=[
@@ -368,7 +368,7 @@ class Reka:
         from reka.client import Reka
 
         client = Reka(
-            header="YOUR_HEADER",
+            api_key="YOUR_API_KEY",
         )
         client.models()
         """
@@ -419,7 +419,7 @@ class AsyncReka:
 
 
 
-    header : typing.Optional[str]
+    api_key : typing.Optional[str]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests by default the timeout is 60 seconds, unless a custom httpx client is used, in which case a default is not set.
 
@@ -434,7 +434,7 @@ class AsyncReka:
     from reka.client import AsyncReka
 
     client = AsyncReka(
-        header="YOUR_HEADER",
+        api_key="YOUR_API_KEY",
     )
     """
 
@@ -443,17 +443,17 @@ class AsyncReka:
         *,
         base_url: typing.Optional[str] = None,
         environment: RekaEnvironment = RekaEnvironment.DEFAULT,
-        header: typing.Optional[str] = os.getenv("REKA_API_KEY"),
+        api_key: typing.Optional[str] = os.getenv("REKA_API_KEY"),
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None,
     ):
         _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
-        if header is None:
-            raise ApiError(body="The client must be instantiated be either passing in header or setting REKA_API_KEY")
+        if api_key is None:
+            raise ApiError(body="The client must be instantiated be either passing in api_key or setting REKA_API_KEY")
         self._client_wrapper = AsyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
-            header=header,
+            api_key=api_key,
             httpx_client=httpx_client
             if httpx_client is not None
             else httpx.AsyncClient(timeout=_defaulted_timeout, follow_redirects=follow_redirects)
@@ -517,7 +517,7 @@ class AsyncReka:
         from reka.client import AsyncReka
 
         client = AsyncReka(
-            header="YOUR_HEADER",
+            api_key="YOUR_API_KEY",
         )
         await client.chat_stream(
             frequency_penalty=1.1,
@@ -655,7 +655,7 @@ class AsyncReka:
         from reka.client import AsyncReka
 
         client = AsyncReka(
-            header="YOUR_HEADER",
+            api_key="YOUR_API_KEY",
         )
         await client.chat(
             messages=[
@@ -743,7 +743,7 @@ class AsyncReka:
         from reka.client import AsyncReka
 
         client = AsyncReka(
-            header="YOUR_HEADER",
+            api_key="YOUR_API_KEY",
         )
         await client.models()
         """
