@@ -24,7 +24,7 @@ class BaseClientWrapper:
     def get_headers(self) -> typing.Dict[str, str]:
         headers: typing.Dict[str, str] = {
             "X-Fern-Language": "Python",
-            "X-Fern-SDK-Name": "ppod-1991",
+            "X-Fern-SDK-Name": "reka-ai",
             "X-Fern-SDK-Version": "0.0.0",
         }
         headers["X-Api-Key"] = self._api_key
