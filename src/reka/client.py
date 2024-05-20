@@ -349,7 +349,7 @@ class Reka:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def get_models_models_get(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Model]:
+    def models(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Model]:
         """
         List models available to the user.
 
@@ -370,7 +370,7 @@ class Reka:
         client = Reka(
             api_key="YOUR_API_KEY",
         )
-        client.get_models_models_get()
+        client.models()
         """
         _response = self._client_wrapper.httpx_client.request(
             method="GET",
@@ -724,9 +724,7 @@ class AsyncReka:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    async def get_models_models_get(
-        self, *, request_options: typing.Optional[RequestOptions] = None
-    ) -> typing.List[Model]:
+    async def models(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Model]:
         """
         List models available to the user.
 
@@ -747,7 +745,7 @@ class AsyncReka:
         client = AsyncReka(
             api_key="YOUR_API_KEY",
         )
-        await client.get_models_models_get()
+        await client.models()
         """
         _response = await self._client_wrapper.httpx_client.request(
             method="GET",
