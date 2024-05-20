@@ -82,7 +82,6 @@ class ChatClient:
 
         client = Reka(
             api_key="YOUR_API_KEY",
-            token="YOUR_TOKEN",
             base_url="https://yourhost.com/path/to/api",
         )
         client.chat.chat(
@@ -218,7 +217,6 @@ class AsyncChatClient:
 
         client = AsyncReka(
             api_key="YOUR_API_KEY",
-            token="YOUR_TOKEN",
             base_url="https://yourhost.com/path/to/api",
         )
         await client.chat.chat(
