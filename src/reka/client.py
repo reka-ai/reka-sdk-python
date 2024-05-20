@@ -13,7 +13,6 @@ from .core.jsonable_encoder import jsonable_encoder
 from .core.pydantic_utilities import pydantic_v1
 from .core.remove_none_from_dict import remove_none_from_dict
 from .core.request_options import RequestOptions
-from .text.client import AsyncTextClient, TextClient
 from .types.model import Model
 
 
@@ -27,7 +26,7 @@ class Reka:
         The base url to use for requests from the client.
 
     api_key : str
-    token : typing.Optional[typing.Union[str, typing.Callable[[], str]]]
+    token : typing.Union[str, typing.Callable[[], str]]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests by default the timeout is 60 seconds, unless a custom httpx client is used, in which case a default is not set.
 
@@ -53,7 +52,7 @@ class Reka:
         *,
         base_url: str,
         api_key: str,
-        token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
+        token: typing.Union[str, typing.Callable[[], str]],
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None,
@@ -70,7 +69,6 @@ class Reka:
             else httpx.Client(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
-        self.text = TextClient(client_wrapper=self._client_wrapper)
         self.chat = ChatClient(client_wrapper=self._client_wrapper)
 
     def get_models_models_get(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Model]:
@@ -137,7 +135,7 @@ class AsyncReka:
         The base url to use for requests from the client.
 
     api_key : str
-    token : typing.Optional[typing.Union[str, typing.Callable[[], str]]]
+    token : typing.Union[str, typing.Callable[[], str]]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests by default the timeout is 60 seconds, unless a custom httpx client is used, in which case a default is not set.
 
@@ -163,7 +161,7 @@ class AsyncReka:
         *,
         base_url: str,
         api_key: str,
-        token: typing.Optional[typing.Union[str, typing.Callable[[], str]]] = None,
+        token: typing.Union[str, typing.Callable[[], str]],
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None,
@@ -180,7 +178,6 @@ class AsyncReka:
             else httpx.AsyncClient(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
-        self.text = AsyncTextClient(client_wrapper=self._client_wrapper)
         self.chat = AsyncChatClient(client_wrapper=self._client_wrapper)
 
     async def get_models_models_get(

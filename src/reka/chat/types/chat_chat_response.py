@@ -5,4 +5,4 @@ import typing
 from ...types.chat_response import ChatResponse
 from ...types.chunk_chat_response import ChunkChatResponse
 
-ChatChatPostResponse = typing.Union[ChatResponse, ChunkChatResponse]
+ChatChatResponse = typing.Union[ChatResponse, ChunkChatResponse]
