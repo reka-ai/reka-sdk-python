@@ -23,12 +23,9 @@ from .types import (
     ValidationErrorLocItem,
 )
 from .errors import UnprocessableEntityError
-from . import chat
-from .chat import ChatChatResponse
 from .version import __version__
 
 __all__ = [
-    "ChatChatResponse",
     "ChatResponse",
     "ChatRole",
     "ChatRound",
@@ -51,5 +48,4 @@ __all__ = [
     "ValidationError",
     "ValidationErrorLocItem",
     "__version__",
-    "chat",
 ]
