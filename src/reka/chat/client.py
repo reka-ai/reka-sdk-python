@@ -38,11 +38,14 @@ class ChatClient:
         client.chat.chat()
         """
         _response = self._client_wrapper.httpx_client.request(
-            method="GET",
+            method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "chat/"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
+            json=jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))
+            if request_options is not None
+            else None,
             headers=jsonable_encoder(
                 remove_none_from_dict(
                     {
@@ -93,11 +96,14 @@ class AsyncChatClient:
         await client.chat.chat()
         """
         _response = await self._client_wrapper.httpx_client.request(
-            method="GET",
+            method="POST",
             url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "chat/"),
             params=jsonable_encoder(
                 request_options.get("additional_query_parameters") if request_options is not None else None
             ),
+            json=jsonable_encoder(remove_none_from_dict(request_options.get("additional_body_parameters", {})))
+            if request_options is not None
+            else None,
             headers=jsonable_encoder(
                 remove_none_from_dict(
                     {
