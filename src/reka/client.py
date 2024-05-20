@@ -16,11 +16,11 @@ from .core.request_options import RequestOptions
 from .core.unchecked_base_model import construct_type
 from .environment import RekaEnvironment
 from .errors.unprocessable_entity_error import UnprocessableEntityError
+from .models.client import AsyncModelsClient, ModelsClient
 from .types.chat_response import ChatResponse
 from .types.chat_round import ChatRound
 from .types.chunk_chat_response import ChunkChatResponse
 from .types.http_validation_error import HttpValidationError
-from .types.model import Model
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -86,6 +86,7 @@ class Reka:
             else httpx.Client(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
+        self.models = ModelsClient(client_wrapper=self._client_wrapper)
 
     def chat_stream(
         self,
@@ -349,57 +350,6 @@ class Reka:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
-    def models(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Model]:
-        """
-        List models available to the user.
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[Model]
-            Successful Response
-
-        Examples
-        --------
-        from reka.client import Reka
-
-        client = Reka(
-            api_key="YOUR_API_KEY",
-        )
-        client.models()
-        """
-        _response = self._client_wrapper.httpx_client.request(
-            method="GET",
-            url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "models"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else self._client_wrapper.get_timeout(),
-            retries=0,
-            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
-        )
-        if 200 <= _response.status_code < 300:
-            return typing.cast(typing.List[Model], construct_type(type_=typing.List[Model], object_=_response.json()))  # type: ignore
-        try:
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
 
 class AsyncReka:
     """
@@ -461,6 +411,7 @@ class AsyncReka:
             else httpx.AsyncClient(timeout=_defaulted_timeout),
             timeout=_defaulted_timeout,
         )
+        self.models = AsyncModelsClient(client_wrapper=self._client_wrapper)
 
     async def chat_stream(
         self,
@@ -718,57 +669,6 @@ class AsyncReka:
             raise UnprocessableEntityError(
                 typing.cast(HttpValidationError, construct_type(type_=HttpValidationError, object_=_response.json()))  # type: ignore
             )
-        try:
-            _response_json = _response.json()
-        except JSONDecodeError:
-            raise ApiError(status_code=_response.status_code, body=_response.text)
-        raise ApiError(status_code=_response.status_code, body=_response_json)
-
-    async def models(self, *, request_options: typing.Optional[RequestOptions] = None) -> typing.List[Model]:
-        """
-        List models available to the user.
-
-        Parameters
-        ----------
-        request_options : typing.Optional[RequestOptions]
-            Request-specific configuration.
-
-        Returns
-        -------
-        typing.List[Model]
-            Successful Response
-
-        Examples
-        --------
-        from reka.client import AsyncReka
-
-        client = AsyncReka(
-            api_key="YOUR_API_KEY",
-        )
-        await client.models()
-        """
-        _response = await self._client_wrapper.httpx_client.request(
-            method="GET",
-            url=urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "models"),
-            params=jsonable_encoder(
-                request_options.get("additional_query_parameters") if request_options is not None else None
-            ),
-            headers=jsonable_encoder(
-                remove_none_from_dict(
-                    {
-                        **self._client_wrapper.get_headers(),
-                        **(request_options.get("additional_headers", {}) if request_options is not None else {}),
-                    }
-                )
-            ),
-            timeout=request_options.get("timeout_in_seconds")
-            if request_options is not None and request_options.get("timeout_in_seconds") is not None
-            else self._client_wrapper.get_timeout(),
-            retries=0,
-            max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
-        )
-        if 200 <= _response.status_code < 300:
-            return typing.cast(typing.List[Model], construct_type(type_=typing.List[Model], object_=_response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:

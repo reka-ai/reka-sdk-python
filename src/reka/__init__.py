@@ -23,6 +23,7 @@ from .types import (
     ValidationErrorLocItem,
 )
 from .errors import UnprocessableEntityError
+from . import models
 from .environment import RekaEnvironment
 from .version import __version__
 
@@ -50,4 +51,5 @@ __all__ = [
     "ValidationError",
     "ValidationErrorLocItem",
     "__version__",
+    "models",
 ]
