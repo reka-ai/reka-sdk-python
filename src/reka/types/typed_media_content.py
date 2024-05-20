@@ -5,10 +5,11 @@ import typing
 
 from ..core.datetime_utils import serialize_datetime
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.unchecked_base_model import UncheckedBaseModel
 from .media_type import MediaType
 
 
-class TypedMediaContent(pydantic_v1.BaseModel):
+class TypedMediaContent(UncheckedBaseModel):
     """
     In conjunction with MediaType this is used to enforce the
     {"type": "image_url", "image_url":"https://..."} spec.

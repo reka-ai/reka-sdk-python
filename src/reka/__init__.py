@@ -23,6 +23,7 @@ from .types import (
     ValidationErrorLocItem,
 )
 from .errors import UnprocessableEntityError
+from .environment import RekaEnvironment
 from .version import __version__
 
 __all__ = [
@@ -40,6 +41,7 @@ __all__ = [
     "HttpValidationError",
     "MediaType",
     "Model",
+    "RekaEnvironment",
     "RoundResponse",
     "TypedMediaContent",
     "TypedText",

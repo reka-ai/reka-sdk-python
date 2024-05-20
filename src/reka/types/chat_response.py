@@ -5,10 +5,11 @@ import typing
 
 from ..core.datetime_utils import serialize_datetime
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.unchecked_base_model import UncheckedBaseModel
 from .round_response import RoundResponse
 
 
-class ChatResponse(pydantic_v1.BaseModel):
+class ChatResponse(UncheckedBaseModel):
     """
     Non-streaming specialisation of a chat response.
     """

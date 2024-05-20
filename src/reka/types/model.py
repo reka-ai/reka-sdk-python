@@ -5,9 +5,10 @@ import typing
 
 from ..core.datetime_utils import serialize_datetime
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.unchecked_base_model import UncheckedBaseModel
 
 
-class Model(pydantic_v1.BaseModel):
+class Model(UncheckedBaseModel):
     """
     Represents a model entry. A list of these is the response
     from the list models endpoints. Different users might have

@@ -5,9 +5,10 @@ import typing
 
 from ..core.datetime_utils import serialize_datetime
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.unchecked_base_model import UncheckedBaseModel
 
 
-class TypedText(pydantic_v1.BaseModel):
+class TypedText(UncheckedBaseModel):
     """
     Another way to specify a text message when you are sending multimodal input.
     Your content might look something like that:

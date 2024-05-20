@@ -5,11 +5,12 @@ import typing
 
 from ..core.datetime_utils import serialize_datetime
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.unchecked_base_model import UncheckedBaseModel
 from .chunk_round_response import ChunkRoundResponse
 from .usage import Usage
 
 
-class ChunkChatResponse(pydantic_v1.BaseModel):
+class ChunkChatResponse(UncheckedBaseModel):
     """
     Streaming specialisation of a chat response.
     """

@@ -10,9 +10,10 @@ import httpx
 from .core.api_error import ApiError
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .core.jsonable_encoder import jsonable_encoder
-from .core.pydantic_utilities import pydantic_v1
 from .core.remove_none_from_dict import remove_none_from_dict
 from .core.request_options import RequestOptions
+from .core.unchecked_base_model import construct_type
+from .environment import RekaEnvironment
 from .errors.unprocessable_entity_error import UnprocessableEntityError
 from .types.chat_response import ChatResponse
 from .types.chat_round import ChatRound
@@ -30,8 +31,17 @@ class Reka:
 
     Parameters
     ----------
-    base_url : str
+    base_url : typing.Optional[str]
         The base url to use for requests from the client.
+
+    environment : RekaEnvironment
+        The environment to use for requests from the client. from .environment import RekaEnvironment
+
+
+
+        Defaults to RekaEnvironment.DEFAULT
+
+
 
     api_key : str
     token : typing.Union[str, typing.Callable[[], str]]
@@ -51,14 +61,14 @@ class Reka:
     client = Reka(
         api_key="YOUR_API_KEY",
         token="YOUR_TOKEN",
-        base_url="https://yourhost.com/path/to/api",
     )
     """
 
     def __init__(
         self,
         *,
-        base_url: str,
+        base_url: typing.Optional[str] = None,
+        environment: RekaEnvironment = RekaEnvironment.DEFAULT,
         api_key: str,
         token: typing.Union[str, typing.Callable[[], str]],
         timeout: typing.Optional[float] = None,
@@ -67,7 +77,7 @@ class Reka:
     ):
         _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
         self._client_wrapper = SyncClientWrapper(
-            base_url=base_url,
+            base_url=_get_base_url(base_url=base_url, environment=environment),
             api_key=api_key,
             token=token,
             httpx_client=httpx_client
@@ -135,7 +145,6 @@ class Reka:
         client = Reka(
             api_key="YOUR_API_KEY",
             token="YOUR_TOKEN",
-            base_url="https://yourhost.com/path/to/api",
         )
         client.chat_stream(
             frequency_penalty=1.1,
@@ -205,12 +214,12 @@ class Reka:
                 for _text in _response.iter_lines():
                     if len(_text) == 0:
                         continue
-                    yield pydantic_v1.parse_obj_as(ChunkChatResponse, json.loads(_text))  # type: ignore
+                    yield typing.cast(ChunkChatResponse, construct_type(type_=ChunkChatResponse, object_=json.loads(_text)))  # type: ignore
                 return
             _response.read()
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
-                    pydantic_v1.parse_obj_as(HttpValidationError, _response.json())  # type: ignore
+                    typing.cast(HttpValidationError, construct_type(type_=HttpValidationError, object_=_response.json()))  # type: ignore
                 )
             try:
                 _response_json = _response.json()
@@ -275,7 +284,6 @@ class Reka:
         client = Reka(
             api_key="YOUR_API_KEY",
             token="YOUR_TOKEN",
-            base_url="https://yourhost.com/path/to/api",
         )
         client.chat(
             messages=[
@@ -333,10 +341,10 @@ class Reka:
             max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(ChatResponse, _response.json())  # type: ignore
+            return typing.cast(ChatResponse, construct_type(type_=ChatResponse, object_=_response.json()))  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(
-                pydantic_v1.parse_obj_as(HttpValidationError, _response.json())  # type: ignore
+                typing.cast(HttpValidationError, construct_type(type_=HttpValidationError, object_=_response.json()))  # type: ignore
             )
         try:
             _response_json = _response.json()
@@ -365,7 +373,6 @@ class Reka:
         client = Reka(
             api_key="YOUR_API_KEY",
             token="YOUR_TOKEN",
-            base_url="https://yourhost.com/path/to/api",
         )
         client.get_models_models_get()
         """
@@ -390,7 +397,7 @@ class Reka:
             max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(typing.List[Model], _response.json())  # type: ignore
+            return typing.cast(typing.List[Model], construct_type(type_=typing.List[Model], object_=_response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
@@ -404,8 +411,17 @@ class AsyncReka:
 
     Parameters
     ----------
-    base_url : str
+    base_url : typing.Optional[str]
         The base url to use for requests from the client.
+
+    environment : RekaEnvironment
+        The environment to use for requests from the client. from .environment import RekaEnvironment
+
+
+
+        Defaults to RekaEnvironment.DEFAULT
+
+
 
     api_key : str
     token : typing.Union[str, typing.Callable[[], str]]
@@ -425,14 +441,14 @@ class AsyncReka:
     client = AsyncReka(
         api_key="YOUR_API_KEY",
         token="YOUR_TOKEN",
-        base_url="https://yourhost.com/path/to/api",
     )
     """
 
     def __init__(
         self,
         *,
-        base_url: str,
+        base_url: typing.Optional[str] = None,
+        environment: RekaEnvironment = RekaEnvironment.DEFAULT,
         api_key: str,
         token: typing.Union[str, typing.Callable[[], str]],
         timeout: typing.Optional[float] = None,
@@ -441,7 +457,7 @@ class AsyncReka:
     ):
         _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
         self._client_wrapper = AsyncClientWrapper(
-            base_url=base_url,
+            base_url=_get_base_url(base_url=base_url, environment=environment),
             api_key=api_key,
             token=token,
             httpx_client=httpx_client
@@ -509,7 +525,6 @@ class AsyncReka:
         client = AsyncReka(
             api_key="YOUR_API_KEY",
             token="YOUR_TOKEN",
-            base_url="https://yourhost.com/path/to/api",
         )
         await client.chat_stream(
             frequency_penalty=1.1,
@@ -579,12 +594,12 @@ class AsyncReka:
                 async for _text in _response.aiter_lines():
                     if len(_text) == 0:
                         continue
-                    yield pydantic_v1.parse_obj_as(ChunkChatResponse, json.loads(_text))  # type: ignore
+                    yield typing.cast(ChunkChatResponse, construct_type(type_=ChunkChatResponse, object_=json.loads(_text)))  # type: ignore
                 return
             await _response.aread()
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
-                    pydantic_v1.parse_obj_as(HttpValidationError, _response.json())  # type: ignore
+                    typing.cast(HttpValidationError, construct_type(type_=HttpValidationError, object_=_response.json()))  # type: ignore
                 )
             try:
                 _response_json = _response.json()
@@ -649,7 +664,6 @@ class AsyncReka:
         client = AsyncReka(
             api_key="YOUR_API_KEY",
             token="YOUR_TOKEN",
-            base_url="https://yourhost.com/path/to/api",
         )
         await client.chat(
             messages=[
@@ -707,10 +721,10 @@ class AsyncReka:
             max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(ChatResponse, _response.json())  # type: ignore
+            return typing.cast(ChatResponse, construct_type(type_=ChatResponse, object_=_response.json()))  # type: ignore
         if _response.status_code == 422:
             raise UnprocessableEntityError(
-                pydantic_v1.parse_obj_as(HttpValidationError, _response.json())  # type: ignore
+                typing.cast(HttpValidationError, construct_type(type_=HttpValidationError, object_=_response.json()))  # type: ignore
             )
         try:
             _response_json = _response.json()
@@ -741,7 +755,6 @@ class AsyncReka:
         client = AsyncReka(
             api_key="YOUR_API_KEY",
             token="YOUR_TOKEN",
-            base_url="https://yourhost.com/path/to/api",
         )
         await client.get_models_models_get()
         """
@@ -766,9 +779,18 @@ class AsyncReka:
             max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         )
         if 200 <= _response.status_code < 300:
-            return pydantic_v1.parse_obj_as(typing.List[Model], _response.json())  # type: ignore
+            return typing.cast(typing.List[Model], construct_type(type_=typing.List[Model], object_=_response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
+
+
+def _get_base_url(*, base_url: typing.Optional[str] = None, environment: RekaEnvironment) -> str:
+    if base_url is not None:
+        return base_url
+    elif environment is not None:
+        return environment.value
+    else:
+        raise Exception("Please pass in either base_url or environment to construct the client")

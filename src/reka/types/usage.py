@@ -5,9 +5,10 @@ import typing
 
 from ..core.datetime_utils import serialize_datetime
 from ..core.pydantic_utilities import pydantic_v1
+from ..core.unchecked_base_model import UncheckedBaseModel
 
 
-class Usage(pydantic_v1.BaseModel):
+class Usage(UncheckedBaseModel):
     """
     Type representing usage metadata for a given request.
     """
