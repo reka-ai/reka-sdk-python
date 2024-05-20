@@ -22,6 +22,7 @@ from reka.client import Reka
 
 client = Reka(
     api_key="YOUR_API_KEY",
+    token="YOUR_TOKEN",
     base_url="https://yourhost.com/path/to/api",
 )
 ```
@@ -35,6 +36,7 @@ from reka.client import AsyncReka
 
 client = AsyncReka(
     api_key="YOUR_API_KEY",
+    token="YOUR_TOKEN",
     base_url="https://yourhost.com/path/to/api",
 )
 ```

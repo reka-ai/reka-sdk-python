@@ -30,7 +30,6 @@ class ChatClient:
         model: str,
         frequency_penalty: typing.Optional[float] = OMIT,
         max_tokens: typing.Optional[int] = OMIT,
-        model_name: typing.Optional[str] = OMIT,
         presence_penalty: typing.Optional[float] = OMIT,
         seed: typing.Optional[int] = OMIT,
         stop: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -51,8 +50,6 @@ class ChatClient:
         frequency_penalty : typing.Optional[float]
 
         max_tokens : typing.Optional[int]
-
-        model_name : typing.Optional[str]
 
         presence_penalty : typing.Optional[float]
 
@@ -85,6 +82,7 @@ class ChatClient:
 
         client = Reka(
             api_key="YOUR_API_KEY",
+            token="YOUR_TOKEN",
             base_url="https://yourhost.com/path/to/api",
         )
         client.chat.chat(
@@ -102,8 +100,6 @@ class ChatClient:
             _request["frequency_penalty"] = frequency_penalty
         if max_tokens is not OMIT:
             _request["max_tokens"] = max_tokens
-        if model_name is not OMIT:
-            _request["model_name"] = model_name
         if presence_penalty is not OMIT:
             _request["presence_penalty"] = presence_penalty
         if seed is not OMIT:
@@ -170,7 +166,6 @@ class AsyncChatClient:
         model: str,
         frequency_penalty: typing.Optional[float] = OMIT,
         max_tokens: typing.Optional[int] = OMIT,
-        model_name: typing.Optional[str] = OMIT,
         presence_penalty: typing.Optional[float] = OMIT,
         seed: typing.Optional[int] = OMIT,
         stop: typing.Optional[typing.Sequence[str]] = OMIT,
@@ -191,8 +186,6 @@ class AsyncChatClient:
         frequency_penalty : typing.Optional[float]
 
         max_tokens : typing.Optional[int]
-
-        model_name : typing.Optional[str]
 
         presence_penalty : typing.Optional[float]
 
@@ -225,6 +218,7 @@ class AsyncChatClient:
 
         client = AsyncReka(
             api_key="YOUR_API_KEY",
+            token="YOUR_TOKEN",
             base_url="https://yourhost.com/path/to/api",
         )
         await client.chat.chat(
@@ -242,8 +236,6 @@ class AsyncChatClient:
             _request["frequency_penalty"] = frequency_penalty
         if max_tokens is not OMIT:
             _request["max_tokens"] = max_tokens
-        if model_name is not OMIT:
-            _request["model_name"] = model_name
         if presence_penalty is not OMIT:
             _request["presence_penalty"] = presence_penalty
         if seed is not OMIT:
