@@ -7,6 +7,7 @@ import urllib.parse
 from json.decoder import JSONDecodeError
 
 import httpx
+import httpx_sse
 
 from .core.api_error import ApiError
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
@@ -210,10 +211,9 @@ class Reka:
             max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         ) as _response:
             if 200 <= _response.status_code < 300:
-                for _text in _response.iter_lines():
-                    if len(_text) == 0:
-                        continue
-                    yield typing.cast(ChunkChatResponse, construct_type(type_=ChunkChatResponse, object_=json.loads(_text)))  # type: ignore
+                _event_source = httpx_sse.EventSource(_response)
+                for _sse in _event_source.iter_sse():
+                    yield typing.cast(ChunkChatResponse, construct_type(type_=ChunkChatResponse, object_=json.loads(_sse.data)))  # type: ignore
                 return
             _response.read()
             if _response.status_code == 422:
@@ -535,10 +535,9 @@ class AsyncReka:
             max_retries=request_options.get("max_retries") if request_options is not None else 0,  # type: ignore
         ) as _response:
             if 200 <= _response.status_code < 300:
-                async for _text in _response.aiter_lines():
-                    if len(_text) == 0:
-                        continue
-                    yield typing.cast(ChunkChatResponse, construct_type(type_=ChunkChatResponse, object_=json.loads(_text)))  # type: ignore
+                _event_source = httpx_sse.EventSource(_response)
+                async for _sse in _event_source.aiter_sse():
+                    yield typing.cast(ChunkChatResponse, construct_type(type_=ChunkChatResponse, object_=json.loads(_sse.data)))  # type: ignore
                 return
             await _response.aread()
             if _response.status_code == 422:
