@@ -7,6 +7,7 @@ from ..core.datetime_utils import serialize_datetime
 from ..core.pydantic_utilities import pydantic_v1
 from ..core.unchecked_base_model import UncheckedBaseModel
 from .round_response import RoundResponse
+from .usage import Usage
 
 
 class ChatResponse(UncheckedBaseModel):
@@ -14,7 +15,10 @@ class ChatResponse(UncheckedBaseModel):
     Non-streaming specialisation of a chat response.
     """
 
+    id: str
+    model: str
     responses: typing.List[RoundResponse]
+    usage: Usage
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
