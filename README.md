@@ -13,9 +13,9 @@ request and response fields, and offers both synchronous and asynchronous client
 Add this dependency to your project's build file:
 
 ```bash
-pip install reka-ai
+pip install reka-api
 # or
-poetry add reka-ai
+poetry add reka-api
 ```
 
 ## Usage
@@ -33,11 +33,11 @@ client = Reka(
 client.chat(
     messages=[
         ChatRound(
-            content="How are you today?",
+            content="What is the fifth prime number?",
             role="user",
         )
     ],
-    model="flash",
+    model="reka-core-20240501",
 )
 ```
 
@@ -47,9 +47,11 @@ The SDK also exports an async client so that you can make non-blocking
 calls to our API.
 
 ```python
-from reka.client import Reka
+import asyncio
+from reka import ChatRound
+from reka.client import AsyncReka
 
-client = Reka(
+client = AsyncReka(
     api_key="YOUR_API_KEY",
 )
 
@@ -57,11 +59,11 @@ async def main() -> None:
     await client.chat(
         messages=[
             ChatRound(
-                content="How are you today?",
+                content="What is the fifth prime number?",
                 role="user",
             )
         ],
-        model="flash",
+        model="reka-core-20240501",
     )
 asyncio.run(main())
 ```
@@ -86,12 +88,11 @@ stream = client.chat_stream(
             role="user",
         )
     ],
-    model="flash",
+    model="reka-core-20240501",
 )
 
 for message in stream:
-    print(message.id)
-    print(message.responses)
+    print(message.responses[0].round.content, end='\n---\n')
 ```
 
 ## Exception Handling
