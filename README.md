@@ -41,6 +41,29 @@ client.chat(
 )
 ```
 
+or for multimodality you can do
+
+```python
+client.chat(
+    messages=[
+        ChatRound(
+            role="user",
+            content=[
+                {
+                    "type": "text",
+                    "text": "What is this video about?"
+                },
+                {
+                    "type": "video_url":
+                    "video_url": "https://fun_video"
+                }
+            ],
+        )
+    ],
+    model="reka-core-20240501",
+)
+```
+
 ## Async Client
 
 The SDK also exports an async client so that you can make non-blocking
