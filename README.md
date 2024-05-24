@@ -44,7 +44,7 @@ client.chat.create(
 or for multimodality you can do
 
 ```python
-client.chat.create_stream(
+client.chat.create(
     messages=[
         ChatRound(
             role="user",
@@ -79,7 +79,7 @@ client = AsyncReka(
 )
 
 async def main() -> None:
-    await client.chat(
+    await client.chat.create(
         messages=[
             ChatRound(
                 content="What is the fifth prime number?",
@@ -104,7 +104,7 @@ client = Reka(
     api_key="YOUR_API_KEY",
 )
 
-stream = client.chat_stream(
+stream = client.chat.create_stream(
     messages=[
         ChatRound(
             content="Tell me a short story",
@@ -149,7 +149,7 @@ client = Reka(
 )
 
 # Override timeout for a specific method
-client.chat(..., {
+client.chat.create(..., {
     timeout_in_seconds=20.0
 })
 ```
@@ -169,7 +169,7 @@ A request is deemed retriable when any of the following HTTP status codes is ret
 Use the `max_retries` request option to configure this behavior.
 
 ```python
-client.chat(..., {
+client.chat.create(..., {
      max_retries=1
 })
 ```
