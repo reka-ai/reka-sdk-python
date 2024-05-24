@@ -30,7 +30,7 @@ client = Reka(
     api_key="YOUR_API_KEY",
 )
 
-client.chat(
+client.chat.create(
     messages=[
         ChatRound(
             content="What is the fifth prime number?",
@@ -44,7 +44,7 @@ client.chat(
 or for multimodality you can do
 
 ```python
-client.chat(
+client.chat.create_stream(
     messages=[
         ChatRound(
             role="user",
