@@ -20,7 +20,10 @@ poetry add reka-api
 
 ## Usage
 
-Simply import `Reka` and start making calls to our API.
+You need to add your API key for authentication. You can either do that directly when instantiating a
+`Reka` client, or by setting the `REKA_API_KEY` environment variable.
+
+Then simply import `Reka` and start making calls to our API.
 
 ```python
 from reka import ChatRound
@@ -28,7 +31,7 @@ from reka.client import Reka
 
 client = Reka(
     api_key="YOUR_API_KEY",
-)
+) # or just client = Reka() if set via env
 
 client.chat.create(
     messages=[
@@ -59,6 +62,22 @@ client.chat.create(
                 }
             ],
         )
+    ],
+    model="reka-core-20240501",
+)
+```
+
+### Typing
+
+To construct payloads you can either use the dedicated types like `ChatRound` or construct directly from a dictionary like so:
+
+```
+client.chat.create(
+    messages=[
+        {   
+            "role": "user",
+            "content": "What is the fifth prime number?"
+        }
     ],
     model="reka-core-20240501",
 )
@@ -115,7 +134,7 @@ stream = client.chat.create_stream(
 )
 
 for message in stream:
-    print(message.responses[0].round.content, end='\n---\n')
+    print(message.responses[0].chunk.content, end='\n---\n')
 ```
 
 ## Exception Handling
@@ -126,7 +145,7 @@ All errors thrown by the SDK will be subclasses of [`ApiError`](./src/schematic/
 import reka
 
 try:
-    client.chat(...)
+    client.chat.create(...)
 except reka.core.ApiError as e: # Handle all errors
   print(e.status_code)
   print(e.body)
