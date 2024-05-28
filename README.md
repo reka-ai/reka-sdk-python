@@ -26,7 +26,7 @@ You need to add your API key for authentication. You can either do that directly
 Then simply import `Reka` and start making calls to our API.
 
 ```python
-from reka import ChatRound
+from reka import ChatMessage
 from reka.client import Reka
 
 client = Reka(
@@ -35,7 +35,7 @@ client = Reka(
 
 client.chat.create(
     messages=[
-        ChatRound(
+        ChatMessage(
             content="What is the fifth prime number?",
             role="user",
         )
@@ -49,7 +49,7 @@ or for multimodality you can do
 ```python
 client.chat.create(
     messages=[
-        ChatRound(
+        ChatMessage(
             role="user",
             content=[
                 {
@@ -69,7 +69,7 @@ client.chat.create(
 
 ### Typing
 
-To construct payloads you can either use the dedicated types like `ChatRound` or construct directly from a dictionary like so:
+To construct payloads you can either use the dedicated types like `ChatMessage` or construct directly from a dictionary like so:
 
 ```
 client.chat.create(
@@ -90,7 +90,7 @@ calls to our API.
 
 ```python
 import asyncio
-from reka import ChatRound
+from reka import ChatMessage
 from reka.client import AsyncReka
 
 client = AsyncReka(
@@ -100,7 +100,7 @@ client = AsyncReka(
 async def main() -> None:
     await client.chat.create(
         messages=[
-            ChatRound(
+            ChatMessage(
                 content="What is the fifth prime number?",
                 role="user",
             )
@@ -116,7 +116,7 @@ The SDK supports streaming endpoints. To take advantage of this feature for chat
 use `chat_stream`.
 
 ```Python
-from reka import ChatRound
+from reka import ChatMessage
 from reka.client import Reka
 
 client = Reka(
@@ -125,7 +125,7 @@ client = Reka(
 
 stream = client.chat.create_stream(
     messages=[
-        ChatRound(
+        ChatMessage(
             content="Tell me a short story",
             role="user",
         )
