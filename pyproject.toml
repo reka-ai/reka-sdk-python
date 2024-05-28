@@ -28,7 +28,7 @@ packages = [
 ]
 
 [project.urls]
-Repository = 'https://github.com/fern-demo/reka-python'
+Repository = 'https://github.com/reka-ai/reka-sdk-python'
 
 [tool.poetry.dependencies]
 python = "^3.8"

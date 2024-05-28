@@ -6,7 +6,7 @@ import typing
 from ..core.datetime_utils import serialize_datetime
 from ..core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .chunk_round_response import ChunkRoundResponse
+from .chunk_message_response import ChunkMessageResponse
 from .usage import Usage
 
 
@@ -17,7 +17,7 @@ class ChunkChatResponse(UncheckedBaseModel):
 
     id: str
     model: str
-    responses: typing.List[ChunkRoundResponse]
+    responses: typing.List[ChunkMessageResponse]
     usage: Usage
 
     def json(self, **kwargs: typing.Any) -> str:

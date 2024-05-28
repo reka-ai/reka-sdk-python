@@ -4,4 +4,4 @@ import enum
 
 
 class RekaEnvironment(enum.Enum):
-    DEFAULT = "https://api.reka.ai"
+    DEFAULT = "https://api.reka.ai/v1"

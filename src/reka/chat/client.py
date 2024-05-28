@@ -15,8 +15,8 @@ from ..core.remove_none_from_dict import remove_none_from_dict
 from ..core.request_options import RequestOptions
 from ..core.unchecked_base_model import construct_type
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
+from ..types.chat_message import ChatMessage
 from ..types.chat_response import ChatResponse
-from ..types.chat_round import ChatRound
 from ..types.chunk_chat_response import ChunkChatResponse
 from ..types.http_validation_error import HttpValidationError
 
@@ -31,7 +31,7 @@ class ChatClient:
     def create_stream(
         self,
         *,
-        messages: typing.Sequence[ChatRound],
+        messages: typing.Sequence[ChatMessage],
         model: str,
         frequency_penalty: typing.Optional[float] = OMIT,
         max_tokens: typing.Optional[int] = OMIT,
@@ -47,7 +47,7 @@ class ChatClient:
         """
         Parameters
         ----------
-        messages : typing.Sequence[ChatRound]
+        messages : typing.Sequence[ChatMessage]
 
         model : str
 
@@ -79,7 +79,7 @@ class ChatClient:
 
         Examples
         --------
-        from reka import ChatRound
+        from reka import ChatMessage
         from reka.client import Reka
 
         client = Reka(
@@ -89,7 +89,7 @@ class ChatClient:
             frequency_penalty=1.1,
             max_tokens=1,
             messages=[
-                ChatRound(
+                ChatMessage(
                     content="string",
                     role="user",
                 )
@@ -172,7 +172,7 @@ class ChatClient:
     def create(
         self,
         *,
-        messages: typing.Sequence[ChatRound],
+        messages: typing.Sequence[ChatMessage],
         model: str,
         frequency_penalty: typing.Optional[float] = OMIT,
         max_tokens: typing.Optional[int] = OMIT,
@@ -188,7 +188,7 @@ class ChatClient:
         """
         Parameters
         ----------
-        messages : typing.Sequence[ChatRound]
+        messages : typing.Sequence[ChatMessage]
 
         model : str
 
@@ -220,7 +220,7 @@ class ChatClient:
 
         Examples
         --------
-        from reka import ChatRound
+        from reka import ChatMessage
         from reka.client import Reka
 
         client = Reka(
@@ -228,7 +228,7 @@ class ChatClient:
         )
         client.chat.create(
             messages=[
-                ChatRound(
+                ChatMessage(
                     content="content",
                     role="user",
                 )
@@ -303,7 +303,7 @@ class AsyncChatClient:
     async def create_stream(
         self,
         *,
-        messages: typing.Sequence[ChatRound],
+        messages: typing.Sequence[ChatMessage],
         model: str,
         frequency_penalty: typing.Optional[float] = OMIT,
         max_tokens: typing.Optional[int] = OMIT,
@@ -319,7 +319,7 @@ class AsyncChatClient:
         """
         Parameters
         ----------
-        messages : typing.Sequence[ChatRound]
+        messages : typing.Sequence[ChatMessage]
 
         model : str
 
@@ -351,7 +351,7 @@ class AsyncChatClient:
 
         Examples
         --------
-        from reka import ChatRound
+        from reka import ChatMessage
         from reka.client import AsyncReka
 
         client = AsyncReka(
@@ -361,7 +361,7 @@ class AsyncChatClient:
             frequency_penalty=1.1,
             max_tokens=1,
             messages=[
-                ChatRound(
+                ChatMessage(
                     content="string",
                     role="user",
                 )
@@ -444,7 +444,7 @@ class AsyncChatClient:
     async def create(
         self,
         *,
-        messages: typing.Sequence[ChatRound],
+        messages: typing.Sequence[ChatMessage],
         model: str,
         frequency_penalty: typing.Optional[float] = OMIT,
         max_tokens: typing.Optional[int] = OMIT,
@@ -460,7 +460,7 @@ class AsyncChatClient:
         """
         Parameters
         ----------
-        messages : typing.Sequence[ChatRound]
+        messages : typing.Sequence[ChatMessage]
 
         model : str
 
@@ -492,7 +492,7 @@ class AsyncChatClient:
 
         Examples
         --------
-        from reka import ChatRound
+        from reka import ChatMessage
         from reka.client import AsyncReka
 
         client = AsyncReka(
@@ -500,7 +500,7 @@ class AsyncChatClient:
         )
         await client.chat.create(
             messages=[
-                ChatRound(
+                ChatMessage(
                     content="content",
                     role="user",
                 )

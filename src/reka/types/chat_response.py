@@ -6,7 +6,7 @@ import typing
 from ..core.datetime_utils import serialize_datetime
 from ..core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .round_response import RoundResponse
+from .message_response import MessageResponse
 from .usage import Usage
 
 
@@ -17,7 +17,7 @@ class ChatResponse(UncheckedBaseModel):
 
     id: str
     model: str
-    responses: typing.List[RoundResponse]
+    responses: typing.List[MessageResponse]
     usage: Usage
 
     def json(self, **kwargs: typing.Any) -> str:

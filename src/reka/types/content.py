@@ -2,6 +2,6 @@
 
 import typing
 
-from .chat_round_chunk_content_item import ChatRoundChunkContentItem
+from .chat_message_chunk_content_item import ChatMessageChunkContentItem
 
-Content = typing.Union[str, typing.List[ChatRoundChunkContentItem]]
+Content = typing.Union[str, typing.List[ChatMessageChunkContentItem]]

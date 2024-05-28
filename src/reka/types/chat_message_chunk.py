@@ -10,7 +10,7 @@ from .chat_role import ChatRole
 from .content import Content
 
 
-class ChatRoundChunk(UncheckedBaseModel):
+class ChatMessageChunk(UncheckedBaseModel):
     """
     Type that represents a collection of turns from a single
     entity (role). This is the streaming version.

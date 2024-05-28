@@ -6,17 +6,17 @@ import typing
 from ..core.datetime_utils import serialize_datetime
 from ..core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .chat_round import ChatRound
+from .chat_message_chunk import ChatMessageChunk
 from .finish_reason import FinishReason
 
 
-class RoundResponse(UncheckedBaseModel):
+class ChunkMessageResponse(UncheckedBaseModel):
     """
-    Non-streaming response round type
+    Streaming response message type
     """
 
+    chunk: ChatMessageChunk
     finish_reason: typing.Optional[FinishReason] = None
-    round: ChatRound
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

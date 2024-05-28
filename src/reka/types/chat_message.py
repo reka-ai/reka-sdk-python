@@ -6,17 +6,18 @@ import typing
 from ..core.datetime_utils import serialize_datetime
 from ..core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from ..core.unchecked_base_model import UncheckedBaseModel
-from .chat_round_chunk import ChatRoundChunk
-from .finish_reason import FinishReason
+from .chat_role import ChatRole
+from .content import Content
 
 
-class ChunkRoundResponse(UncheckedBaseModel):
+class ChatMessage(UncheckedBaseModel):
     """
-    Streaming response round type
+    Type that represents a collection of pieces of content from a single
+    entity (role). This is the non-streaming version
     """
 
-    chunk: ChatRoundChunk
-    finish_reason: typing.Optional[FinishReason] = None
+    content: Content
+    role: ChatRole
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}

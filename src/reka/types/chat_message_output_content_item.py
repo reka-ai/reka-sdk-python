@@ -5,4 +5,4 @@ import typing
 from .typed_media_content import TypedMediaContent
 from .typed_text import TypedText
 
-ChatRoundOutputContentItem = typing.Union[TypedText, TypedMediaContent]
+ChatMessageOutputContentItem = typing.Union[TypedText, TypedMediaContent]
