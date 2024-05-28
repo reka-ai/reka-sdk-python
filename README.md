@@ -83,6 +83,16 @@ client.chat.create(
 )
 ```
 
+### V2 SDK
+
+In case you have workloads running the previous version of our SDK, you can import it like this `import reka.v2 as rekav2` and then continue to use it as you are already familiar, e.g.
+
+```
+rekav2.API_KEY = "your-api-key"
+
+response = rekav2.chat("What is the capital of the UK?")
+```
+
 ## Async Client
 
 The SDK also exports an async client so that you can make non-blocking
