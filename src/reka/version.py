@@ -1,4 +1,4 @@
 
 from importlib import metadata
 
-__version__ = metadata.version("reka-ai")
+__version__ = metadata.version("reka-api")
