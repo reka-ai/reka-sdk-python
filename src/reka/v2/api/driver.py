@@ -6,8 +6,8 @@ from typing import Any, Dict, Optional, cast
 
 import requests
 
-import reka
-from reka.errors import AuthError
+import reka.v2 as rekav2
+from reka.v2.errors import AuthError
 
 
 def make_request(
@@ -20,18 +20,18 @@ def make_request(
 ) -> Dict[str, Any]:
     """Wrapper around requests, handling authentication, reka server, and exceptions."""
     headers = headers or {}
-    if reka.API_KEY is None:
+    if rekav2.API_KEY is None:
         raise AuthError(
-            reason='Reka API key not set. Set in code with `reka.API_KEY = "your-key"`, '
+            reason='Reka API key not set. Set in code with `rekav2.API_KEY = "your-key"`, '
             'or using the environment variable `export REKA_API_KEY="your-key"`.'
         )
 
-    headers["X-Api-Key"] = reka.API_KEY
+    headers["X-Api-Key"] = rekav2.API_KEY
 
     try:
         response = requests.request(
             method=method,
-            url=f"{reka._SERVER}/{endpoint}",
+            url=f"{rekav2._SERVER}/{endpoint}",
             headers=headers,
             data=data,
             files=files,

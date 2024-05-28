@@ -5,8 +5,8 @@ from __future__ import annotations
 import base64
 from typing import Any, Dict, List, Literal, Optional, TypedDict, cast
 
-import reka.api.driver as driver
-from reka.errors import InvalidConversationError
+import reka.v2.api.driver as driver
+from reka.v2.errors import InvalidConversationError
 
 
 class ModelTurn(TypedDict):

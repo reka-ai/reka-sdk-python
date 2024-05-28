@@ -9,10 +9,10 @@ API_KEY = os.getenv("REKA_API_KEY")
 _SERVER = os.getenv("REKA_SERVER", "https://api.reka.ai")
 
 __version__ = importlib.metadata.version("reka-api")
-from reka.api.chat import chat
-from reka.api.dataset import add_dataset, delete_dataset, list_datasets
-from reka.api.models import list_models
-from reka.api.retrieval import (
+from reka.v2.api.chat import chat
+from reka.v2.api.dataset import add_dataset, delete_dataset, list_datasets
+from reka.v2.api.models import list_models
+from reka.v2.api.retrieval import (
     PrepareRetrievalStatusResponse,
     prepare_retrieval,
     retrieval_job_status,

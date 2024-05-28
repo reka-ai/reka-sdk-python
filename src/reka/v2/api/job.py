@@ -3,7 +3,7 @@
 from enum import Enum
 from typing import Any, Dict
 
-import reka.api.driver as driver
+import reka.v2.api.driver as driver
 
 
 class JobStatus(Enum):

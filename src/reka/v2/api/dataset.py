@@ -4,8 +4,8 @@ from typing import Any, Dict, List, Optional, cast
 
 from requests.exceptions import HTTPError
 
-import reka.api.driver as driver
-from reka.errors import DatasetError
+import reka.v2.api.driver as driver
+from reka.v2.errors import DatasetError
 
 
 def list_datasets() -> List[str]:

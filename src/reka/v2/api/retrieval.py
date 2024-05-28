@@ -7,9 +7,9 @@ from typing import Any, Dict, List, cast
 
 from requests.exceptions import HTTPError
 
-import reka.api.driver as driver
-import reka.api.job as job
-from reka.errors import RetrievalError
+import reka.v2.api.driver as driver
+import reka.v2.api.job as job
+from reka.v2.errors import RetrievalError
 
 
 @dataclasses.dataclass

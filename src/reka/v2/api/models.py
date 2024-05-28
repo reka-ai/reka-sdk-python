@@ -2,7 +2,7 @@
 
 from typing import List, cast
 
-import reka.api.driver as driver
+import reka.v2.api.driver as driver
 
 
 def list_models() -> List[str]:
