@@ -2,3 +2,4 @@
 README.md
 LICENSE
 src/reka/v2/
+tests/custom/test_client.py
