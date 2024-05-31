@@ -11,8 +11,10 @@ from ..core.unchecked_base_model import UncheckedBaseModel
 class Model(UncheckedBaseModel):
     """
     Represents a model entry. A list of these is the response
+
     from the list models endpoints. Different users might have
-    permissions to access different models.
+
+    permissions to access different models.'
     """
 
     id: str

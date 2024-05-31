@@ -1,11 +1,17 @@
 [tool.poetry]
 name = "reka-api"
-version = "3.0.5"
-description = ""
+version = "3.0.6"
+description = "Reka Python SDK"
 readme = "README.md"
-authors = []
-keywords = []
-
+authors = [
+    "Reka Team <contact@reka.ai>"
+]
+keywords = [
+    "reka",
+    "ai",
+    "sdk"
+]
+license = "MIT"
 classifiers = [
     "Intended Audience :: Developers",
     "Programming Language :: Python",
@@ -21,13 +27,16 @@ classifiers = [
     "Operating System :: POSIX :: Linux",
     "Operating System :: Microsoft :: Windows",
     "Topic :: Software Development :: Libraries :: Python Modules",
-    "Typing :: Typed"
+    "Typing :: Typed",
+    "License :: OSI Approved :: MIT License"
 ]
 packages = [
     { include = "reka", from = "src"}
 ]
 
 [project.urls]
+Documentation = 'https://docs.reka.ai'
+Homepage = 'https://reka.ai'
 Repository = 'https://github.com/reka-ai/reka-sdk-python'
 
 [tool.poetry.dependencies]

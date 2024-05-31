@@ -12,7 +12,7 @@ from .usage import Usage
 
 class ChatResponse(UncheckedBaseModel):
     """
-    Non-streaming specialisation of a chat response.
+    A chat response.
     """
 
     id: str

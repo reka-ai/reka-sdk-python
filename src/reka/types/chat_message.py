@@ -12,8 +12,7 @@ from .content import Content
 
 class ChatMessage(UncheckedBaseModel):
     """
-    Type that represents a collection of pieces of content from a single
-    entity (role). This is the non-streaming version
+    A collection of pieces of content from a single entity (role).
     """
 
     content: Content
