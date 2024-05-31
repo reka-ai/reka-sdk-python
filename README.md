@@ -71,7 +71,7 @@ client.chat.create(
 
 To construct payloads you can either use the dedicated types like `ChatMessage` or construct directly from a dictionary like so:
 
-```
+```python
 client.chat.create(
     messages=[
         {   
@@ -87,7 +87,7 @@ client.chat.create(
 
 In case you have workloads running the previous version of our SDK, you can import it like this `import reka.v2 as rekav2` and then continue to use it as you are already familiar, e.g.
 
-```
+```python
 rekav2.API_KEY = "your-api-key"
 
 response = rekav2.chat("What is the capital of the UK?")
