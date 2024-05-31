@@ -1,6 +1,5 @@
-import pytest
+import reka
 
-# Get started with writing tests with pytest at https://docs.pytest.org
-@pytest.mark.skip(reason="Unimplemented")
-def test_client() -> None:
-    assert True == True
+
+def test__version():
+    assert isinstance(reka.__version__, str)
