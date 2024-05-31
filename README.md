@@ -221,13 +221,6 @@ client = Reka(...,
 )
 ```
 
-## Beta Status
-
-This SDK is in **Preview**, and there may be breaking changes between versions without a major
-version update.
-
-To ensure a reproducible environment (and minimize risk of breaking changes), we recommend pinning a specific package version.
-
 ## Contributing
 
 While we value open-source contributions to this SDK, this library is generated programmatically.
