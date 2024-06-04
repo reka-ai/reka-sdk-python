@@ -59,7 +59,7 @@ class Reka:
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None
     ):
-        _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
+        _defaulted_timeout = timeout if timeout is not None else 300 if httpx_client is None else None
         if api_key is None:
             raise ApiError(body="The client must be instantiated be either passing in api_key or setting REKA_API_KEY")
         self._client_wrapper = SyncClientWrapper(
@@ -123,7 +123,7 @@ class AsyncReka:
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None
     ):
-        _defaulted_timeout = timeout if timeout is not None else 60 if httpx_client is None else None
+        _defaulted_timeout = timeout if timeout is not None else 300 if httpx_client is None else None
         if api_key is None:
             raise ApiError(body="The client must be instantiated be either passing in api_key or setting REKA_API_KEY")
         self._client_wrapper = AsyncClientWrapper(
