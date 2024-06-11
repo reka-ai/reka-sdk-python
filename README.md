@@ -53,13 +53,13 @@ client.chat.create(
             role="user",
             content=[
                 {
+                    "type": "video_url":
+                    "video_url": "https://fun_video"
+                },
+                {
                     "type": "text",
                     "text": "What is this video about?"
                 },
-                {
-                    "type": "video_url":
-                    "video_url": "https://fun_video"
-                }
             ],
         )
     ],
