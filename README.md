@@ -44,7 +44,7 @@ client.chat.create(
 )
 ```
 
-or for multimodality you can do
+or for multimodality you can do the following:
 
 ```python
 client.chat.create(
@@ -66,6 +66,8 @@ client.chat.create(
     model="reka-core-20240501",
 )
 ```
+
+Note that the model should work best when you put media content before the text content.
 
 ### Typing
 
