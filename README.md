@@ -217,7 +217,7 @@ import httpx
 from reka.client import Reka
 
 client = Reka(...,
-    http_client=httpx.Client(
+    httpx_client=httpx.Client(
         proxies="http://my.test.proxy.example.com",
         transport=httpx.HTTPTransport(local_address="0.0.0.0"),
     ),
