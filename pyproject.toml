@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "reka-api"
-version = "3.0.8"
+version = "3.1.0"
 description = "Reka Python SDK"
 readme = "README.md"
 authors = [

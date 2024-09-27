@@ -38,6 +38,7 @@ class ModelsClient:
 
         client = Reka(
             api_key="YOUR_API_KEY",
+            token="YOUR_TOKEN",
         )
         client.models.get()
         """
@@ -96,6 +97,7 @@ class AsyncModelsClient:
 
         client = AsyncReka(
             api_key="YOUR_API_KEY",
+            token="YOUR_TOKEN",
         )
         await client.models.get()
         """

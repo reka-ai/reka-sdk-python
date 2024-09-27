@@ -19,6 +19,8 @@ from ..types.chat_message import ChatMessage
 from ..types.chat_response import ChatResponse
 from ..types.chunk_chat_response import ChunkChatResponse
 from ..types.http_validation_error import HttpValidationError
+from ..types.tool import Tool
+from ..types.tool_choice import ToolChoice
 
 # this is used as the default value for optional parameters
 OMIT = typing.cast(typing.Any, ...)
@@ -39,6 +41,8 @@ class ChatClient:
         seed: typing.Optional[int] = OMIT,
         stop: typing.Optional[typing.Sequence[str]] = OMIT,
         temperature: typing.Optional[float] = OMIT,
+        tool_choice: typing.Optional[ToolChoice] = OMIT,
+        tools: typing.Optional[typing.Sequence[Tool]] = OMIT,
         top_k: typing.Optional[int] = OMIT,
         top_p: typing.Optional[float] = OMIT,
         use_search_engine: typing.Optional[bool] = OMIT,
@@ -71,6 +75,12 @@ class ChatClient:
         temperature : typing.Optional[float]
             Positive number representing the temperature to use for generation. Higher values will make the output more unformly random or *creative*. 0.0 means greedy decoding. Defaults to 0.4.
 
+        tool_choice : typing.Optional[ToolChoice]
+            Controls how the model may use the provided tools. Set to 'auto' to let the model decide whether or not to invoke a tool. Set to 'none' to disable tool use. Set to 'tool' to force the model to invoke a tool.
+
+        tools : typing.Optional[typing.Sequence[Tool]]
+            List of tools the model has access to.
+
         top_k : typing.Optional[int]
             Parameter which forces the model to only consider the tokens with the `top_k` highest probabilities at the next step. Defaults to 1024.
 
@@ -90,11 +100,12 @@ class ChatClient:
 
         Examples
         --------
-        from reka import ChatMessage
+        from reka import ChatMessage, Tool, ToolCall
         from reka.client import Reka
 
         client = Reka(
             api_key="YOUR_API_KEY",
+            token="YOUR_TOKEN",
         )
         response = client.chat.create_stream(
             frequency_penalty=1.1,
@@ -103,6 +114,7 @@ class ChatClient:
                 ChatMessage(
                     content="string",
                     role="user",
+                    tool_calls=[ToolCall()],
                 )
             ],
             model="string",
@@ -110,6 +122,14 @@ class ChatClient:
             seed=1,
             stop=["string"],
             temperature=1.1,
+            tool_choice="auto",
+            tools=[
+                Tool(
+                    description="string",
+                    name="string",
+                    parameters={"string": {"key": "value"}},
+                )
+            ],
             top_k=1,
             top_p=1.1,
             use_search_engine=True,
@@ -130,6 +150,10 @@ class ChatClient:
             _request["stop"] = stop
         if temperature is not OMIT:
             _request["temperature"] = temperature
+        if tool_choice is not OMIT:
+            _request["tool_choice"] = tool_choice
+        if tools is not OMIT:
+            _request["tools"] = tools
         if top_k is not OMIT:
             _request["top_k"] = top_k
         if top_p is not OMIT:
@@ -191,6 +215,8 @@ class ChatClient:
         seed: typing.Optional[int] = OMIT,
         stop: typing.Optional[typing.Sequence[str]] = OMIT,
         temperature: typing.Optional[float] = OMIT,
+        tool_choice: typing.Optional[ToolChoice] = OMIT,
+        tools: typing.Optional[typing.Sequence[Tool]] = OMIT,
         top_k: typing.Optional[int] = OMIT,
         top_p: typing.Optional[float] = OMIT,
         use_search_engine: typing.Optional[bool] = OMIT,
@@ -223,6 +249,12 @@ class ChatClient:
         temperature : typing.Optional[float]
             Positive number representing the temperature to use for generation. Higher values will make the output more unformly random or *creative*. 0.0 means greedy decoding. Defaults to 0.4.
 
+        tool_choice : typing.Optional[ToolChoice]
+            Controls how the model may use the provided tools. Set to 'auto' to let the model decide whether or not to invoke a tool. Set to 'none' to disable tool use. Set to 'tool' to force the model to invoke a tool.
+
+        tools : typing.Optional[typing.Sequence[Tool]]
+            List of tools the model has access to.
+
         top_k : typing.Optional[int]
             Parameter which forces the model to only consider the tokens with the `top_k` highest probabilities at the next step. Defaults to 1024.
 
@@ -247,6 +279,7 @@ class ChatClient:
 
         client = Reka(
             api_key="YOUR_API_KEY",
+            token="YOUR_TOKEN",
         )
         client.chat.create(
             model="reka-core",
@@ -271,6 +304,10 @@ class ChatClient:
             _request["stop"] = stop
         if temperature is not OMIT:
             _request["temperature"] = temperature
+        if tool_choice is not OMIT:
+            _request["tool_choice"] = tool_choice
+        if tools is not OMIT:
+            _request["tools"] = tools
         if top_k is not OMIT:
             _request["top_k"] = top_k
         if top_p is not OMIT:
@@ -333,6 +370,8 @@ class AsyncChatClient:
         seed: typing.Optional[int] = OMIT,
         stop: typing.Optional[typing.Sequence[str]] = OMIT,
         temperature: typing.Optional[float] = OMIT,
+        tool_choice: typing.Optional[ToolChoice] = OMIT,
+        tools: typing.Optional[typing.Sequence[Tool]] = OMIT,
         top_k: typing.Optional[int] = OMIT,
         top_p: typing.Optional[float] = OMIT,
         use_search_engine: typing.Optional[bool] = OMIT,
@@ -365,6 +404,12 @@ class AsyncChatClient:
         temperature : typing.Optional[float]
             Positive number representing the temperature to use for generation. Higher values will make the output more unformly random or *creative*. 0.0 means greedy decoding. Defaults to 0.4.
 
+        tool_choice : typing.Optional[ToolChoice]
+            Controls how the model may use the provided tools. Set to 'auto' to let the model decide whether or not to invoke a tool. Set to 'none' to disable tool use. Set to 'tool' to force the model to invoke a tool.
+
+        tools : typing.Optional[typing.Sequence[Tool]]
+            List of tools the model has access to.
+
         top_k : typing.Optional[int]
             Parameter which forces the model to only consider the tokens with the `top_k` highest probabilities at the next step. Defaults to 1024.
 
@@ -384,11 +429,12 @@ class AsyncChatClient:
 
         Examples
         --------
-        from reka import ChatMessage
+        from reka import ChatMessage, Tool, ToolCall
         from reka.client import AsyncReka
 
         client = AsyncReka(
             api_key="YOUR_API_KEY",
+            token="YOUR_TOKEN",
         )
         response = await client.chat.create_stream(
             frequency_penalty=1.1,
@@ -397,6 +443,7 @@ class AsyncChatClient:
                 ChatMessage(
                     content="string",
                     role="user",
+                    tool_calls=[ToolCall()],
                 )
             ],
             model="string",
@@ -404,6 +451,14 @@ class AsyncChatClient:
             seed=1,
             stop=["string"],
             temperature=1.1,
+            tool_choice="auto",
+            tools=[
+                Tool(
+                    description="string",
+                    name="string",
+                    parameters={"string": {"key": "value"}},
+                )
+            ],
             top_k=1,
             top_p=1.1,
             use_search_engine=True,
@@ -424,6 +479,10 @@ class AsyncChatClient:
             _request["stop"] = stop
         if temperature is not OMIT:
             _request["temperature"] = temperature
+        if tool_choice is not OMIT:
+            _request["tool_choice"] = tool_choice
+        if tools is not OMIT:
+            _request["tools"] = tools
         if top_k is not OMIT:
             _request["top_k"] = top_k
         if top_p is not OMIT:
@@ -485,6 +544,8 @@ class AsyncChatClient:
         seed: typing.Optional[int] = OMIT,
         stop: typing.Optional[typing.Sequence[str]] = OMIT,
         temperature: typing.Optional[float] = OMIT,
+        tool_choice: typing.Optional[ToolChoice] = OMIT,
+        tools: typing.Optional[typing.Sequence[Tool]] = OMIT,
         top_k: typing.Optional[int] = OMIT,
         top_p: typing.Optional[float] = OMIT,
         use_search_engine: typing.Optional[bool] = OMIT,
@@ -517,6 +578,12 @@ class AsyncChatClient:
         temperature : typing.Optional[float]
             Positive number representing the temperature to use for generation. Higher values will make the output more unformly random or *creative*. 0.0 means greedy decoding. Defaults to 0.4.
 
+        tool_choice : typing.Optional[ToolChoice]
+            Controls how the model may use the provided tools. Set to 'auto' to let the model decide whether or not to invoke a tool. Set to 'none' to disable tool use. Set to 'tool' to force the model to invoke a tool.
+
+        tools : typing.Optional[typing.Sequence[Tool]]
+            List of tools the model has access to.
+
         top_k : typing.Optional[int]
             Parameter which forces the model to only consider the tokens with the `top_k` highest probabilities at the next step. Defaults to 1024.
 
@@ -541,6 +608,7 @@ class AsyncChatClient:
 
         client = AsyncReka(
             api_key="YOUR_API_KEY",
+            token="YOUR_TOKEN",
         )
         await client.chat.create(
             model="reka-core",
@@ -565,6 +633,10 @@ class AsyncChatClient:
             _request["stop"] = stop
         if temperature is not OMIT:
             _request["temperature"] = temperature
+        if tool_choice is not OMIT:
+            _request["tool_choice"] = tool_choice
+        if tools is not OMIT:
+            _request["tools"] = tools
         if top_k is not OMIT:
             _request["top_k"] = top_k
         if top_p is not OMIT:

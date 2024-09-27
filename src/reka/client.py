@@ -31,6 +31,7 @@ class Reka:
 
 
     api_key : typing.Optional[str]
+    token : typing.Union[str, typing.Callable[[], str]]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests by default the timeout is 60 seconds, unless a custom httpx client is used, in which case a default is not set.
 
@@ -46,6 +47,7 @@ class Reka:
 
     client = Reka(
         api_key="YOUR_API_KEY",
+        token="YOUR_TOKEN",
     )
     """
 
@@ -55,6 +57,7 @@ class Reka:
         base_url: typing.Optional[str] = None,
         environment: RekaEnvironment = RekaEnvironment.DEFAULT,
         api_key: typing.Optional[str] = os.getenv("REKA_API_KEY"),
+        token: typing.Union[str, typing.Callable[[], str]],
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.Client] = None
@@ -65,6 +68,7 @@ class Reka:
         self._client_wrapper = SyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
             api_key=api_key,
+            token=token,
             httpx_client=httpx_client
             if httpx_client is not None
             else httpx.Client(timeout=_defaulted_timeout, follow_redirects=follow_redirects)
@@ -95,6 +99,7 @@ class AsyncReka:
 
 
     api_key : typing.Optional[str]
+    token : typing.Union[str, typing.Callable[[], str]]
     timeout : typing.Optional[float]
         The timeout to be used, in seconds, for requests by default the timeout is 60 seconds, unless a custom httpx client is used, in which case a default is not set.
 
@@ -110,6 +115,7 @@ class AsyncReka:
 
     client = AsyncReka(
         api_key="YOUR_API_KEY",
+        token="YOUR_TOKEN",
     )
     """
 
@@ -119,6 +125,7 @@ class AsyncReka:
         base_url: typing.Optional[str] = None,
         environment: RekaEnvironment = RekaEnvironment.DEFAULT,
         api_key: typing.Optional[str] = os.getenv("REKA_API_KEY"),
+        token: typing.Union[str, typing.Callable[[], str]],
         timeout: typing.Optional[float] = None,
         follow_redirects: typing.Optional[bool] = True,
         httpx_client: typing.Optional[httpx.AsyncClient] = None
@@ -129,6 +136,7 @@ class AsyncReka:
         self._client_wrapper = AsyncClientWrapper(
             base_url=_get_base_url(base_url=base_url, environment=environment),
             api_key=api_key,
+            token=token,
             httpx_client=httpx_client
             if httpx_client is not None
             else httpx.AsyncClient(timeout=_defaulted_timeout, follow_redirects=follow_redirects)
