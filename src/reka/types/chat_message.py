@@ -8,7 +8,6 @@ from ..core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from ..core.unchecked_base_model import UncheckedBaseModel
 from .chat_role import ChatRole
 from .content import Content
-from .tool_call import ToolCall
 
 
 class ChatMessage(UncheckedBaseModel):
@@ -16,9 +15,8 @@ class ChatMessage(UncheckedBaseModel):
     A collection of pieces of content from a single entity (role).
     """
 
-    content: typing.Optional[Content] = None
+    content: Content
     role: ChatRole
-    tool_calls: typing.Optional[typing.List[ToolCall]] = None
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
