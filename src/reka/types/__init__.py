@@ -15,6 +15,10 @@ from .http_validation_error import HttpValidationError
 from .media_type import MediaType
 from .message_response import MessageResponse
 from .model import Model
+from .tool import Tool
+from .tool_call import ToolCall
+from .tool_choice import ToolChoice
+from .tool_output import ToolOutput
 from .typed_media_content import TypedMediaContent
 from .typed_text import TypedText
 from .usage import Usage
@@ -37,6 +41,10 @@ __all__ = [
     "MediaType",
     "MessageResponse",
     "Model",
+    "Tool",
+    "ToolCall",
+    "ToolChoice",
+    "ToolOutput",
     "TypedMediaContent",
     "TypedText",
     "Usage",

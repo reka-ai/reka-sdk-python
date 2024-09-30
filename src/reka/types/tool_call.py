@@ -8,14 +8,19 @@ from ..core.pydantic_utilities import deep_union_pydantic_dicts, pydantic_v1
 from ..core.unchecked_base_model import UncheckedBaseModel
 
 
-class Model(UncheckedBaseModel):
+class ToolCall(UncheckedBaseModel):
     """
-    Represents a model entry. A list of these is the response
-    from the list models endpoints. Different users might have
-    permissions to access different models.
+    Represents a call to a tool function.
+
+    Attributes:
+    id (str): Unique identifier for the tool call.
+    name (str): Name of the tool function to be called.
+    parameters (JsonSchemaValue): Parameters to be passed to the tool function.
     """
 
     id: str
+    name: str
+    parameters: typing.Dict[str, typing.Any]
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
